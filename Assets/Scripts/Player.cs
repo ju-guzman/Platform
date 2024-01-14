@@ -21,10 +21,20 @@ public class Player : MonoBehaviour
     [SerializeField] private float attackRadius = 1f;
     [SerializeField] private LayerMask AttackLayer;
 
+    [Header("Health system")]
+    [SerializeField] private SO_PlayerHealthManager healtManager;
+
+    public SO_PlayerHealthManager HealtManager => healtManager;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        healtManager.OnGameOver += OnDeath;
+    }
+    void OnDeath()
+    {
+        Destroy(gameObject);
     }
 
     void Update()

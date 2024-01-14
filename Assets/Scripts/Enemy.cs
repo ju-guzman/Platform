@@ -6,8 +6,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private Transform[] patrolPoints;
     [SerializeField] private float speed = 5f;
-    [SerializeField] private float damage = 10f;
-
+    [SerializeField] private int scoreByDeath = 10;
 
     private int currentPatrolPoint = 0;
 
@@ -17,6 +16,11 @@ public class Enemy : MonoBehaviour
         {
             StartCoroutine(Patrol());
         }
+    }
+
+    private void OnDestroy()
+    {
+        SO_ScoreManager.Instance.AddScore(scoreByDeath);
     }
 
     IEnumerator Patrol()
@@ -58,7 +62,7 @@ public class Enemy : MonoBehaviour
         }
         if(collision.CompareTag("Player"))
         {
-            collision.GetComponent<LifeComponent>().TakenDamage(damage);
+            collision.GetComponent<Player>().HealtManager.TakeDamage(1);
         }
     }
 }
