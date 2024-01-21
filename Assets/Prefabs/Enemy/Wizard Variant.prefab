@@ -136,6 +136,10 @@ PrefabInstance:
       value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 8075513388075506792, guid: e3b8a63aad8caed42bb077e2ffb123dd, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 8589905716139197376, guid: 81687473161de164a852c4566dab32ea, type: 3}
+    - target: {fileID: 8075513388075506792, guid: e3b8a63aad8caed42bb077e2ffb123dd, type: 3}
       propertyPath: patrolPoints.Array.size
       value: 0
       objectReference: {fileID: 0}

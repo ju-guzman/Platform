@@ -8,7 +8,7 @@ public class FireballAttack : MonoBehaviour
     [SerializeField] private float attackRatio = 10f;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private GameObject fireballPrefab;
-    [SerializeField] private float damage = 10f;
+    [SerializeField] private int damage = 1;
 
     private Animator anim;
     // Start is called before the first frame update
@@ -29,7 +29,7 @@ public class FireballAttack : MonoBehaviour
 
     private void Attack()
     {
-        Instantiate(fireballPrefab, spawnPoint.position, transform.rotation);
+        Instantiate(fireballPrefab, spawnPoint.position, transform.rotation, transform);
     }
 
     // Update is called once per frame

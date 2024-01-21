@@ -4117,9 +4117,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wizard
       objectReference: {fileID: 0}
+    - target: {fileID: 2522527629983888761, guid: cef1af2544a4cd847a71f0e067f0f008, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6108452163631118296, guid: cef1af2544a4cd847a71f0e067f0f008, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.504
+      value: 13.5
       objectReference: {fileID: 0}
     - target: {fileID: 6108452163631118296, guid: cef1af2544a4cd847a71f0e067f0f008, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4173,6 +4177,10 @@ PrefabInstance:
     - target: {fileID: 4352015190546739695, guid: 5766a7b72d7c2344083a541d5635107f, type: 3}
       propertyPath: m_Name
       value: Bat
+      objectReference: {fileID: 0}
+    - target: {fileID: 4352015190546739695, guid: 5766a7b72d7c2344083a541d5635107f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5449693791824556878, guid: 5766a7b72d7c2344083a541d5635107f, type: 3}
       propertyPath: m_LocalPosition.x
