@@ -2,12 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Player : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Animator anim;
     private float inputH;
+
+   
+    bool isGrounded;
+
+
+    bool doubleJump;
+
+
+    [Header("wall Jump System")]
+    public Transform wallCheck;
+    bool isWallTocuh;
+    bool isDliding;
+    public float wallSlidingSpeed;
+
 
     [Header("Move system")]
     [SerializeField] private float speed = 5f;
@@ -31,7 +46,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         healtManager.OnGameOver += OnDeath;
-    }
+        }
     void OnDeath()
     {
         Destroy(gameObject);
@@ -42,12 +57,30 @@ public class Player : MonoBehaviour
         Move();
         Jump();
         LaunchDamage();
+        WallCheck();
+
+    }
+
+    private void WallCheck()
+    {
+        isGrounded = Physics2D.OverlapBox(groundCheck.position, new Vector2(1.7f, 0.24f), 0, GroundLayer);
+        isGrounded = Physics2D.OverlapBox(wallCheck.position, new Vector2(0.3f, 1.7f), 0, GroundLayer);
+
+        if(isWallTocuh && !isGrounded && inputH != 0)
+        {
+            isDliding = true;
+        }
+        else
+        {
+            isDliding = false;
+        }
     }
 
     private bool IsInGroun()
     {
         Debug.DrawRay(groundCheck.position, Vector2.down, Color.red, 0.3f);
         return Physics2D.Raycast(groundCheck.position, Vector2.down, 0.3f, GroundLayer);
+
     }
 
     private void Move()
@@ -73,10 +106,28 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && IsInGroun())
+        //if (Input.GetKeyDown(KeyCode.Space) && IsInGroun())
+        //{
+        //    rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        //    anim.SetTrigger("Jump");
+        //}
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             anim.SetTrigger("Jump");
+
+            if (IsInGroun())
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                doubleJump = true;
+            }
+
+            else if (doubleJump)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                doubleJump = false;
+            }
+            
         }
     }
 
@@ -102,4 +153,13 @@ public class Player : MonoBehaviour
     {
         Gizmos.DrawWireSphere(attackOrigin.position, attackRadius);
     }
+
+    private void FixedUpdate()
+    {
+        if (isDliding)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
+        }
+    }
+
 }

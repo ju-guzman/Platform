@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour
 
     private void RotatePatrolCharacter()
     {
-        if(transform.position.x > patrolPoints[currentPatrolPoint].position.x)
+        if (transform.position.x > patrolPoints[currentPatrolPoint].position.x)
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }
@@ -59,7 +59,7 @@ public class Enemy : MonoBehaviour
 
     private void RotateStationaryCharacter()
     {
-        if (player.transform.position.x < transform.position.x) 
+        if (player.transform.position.x < transform.position.x)
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }
@@ -71,7 +71,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (patrolPoints.Length == 0) 
+        if (patrolPoints.Length == 0)
         {
             RotateStationaryCharacter();
         }
@@ -79,11 +79,11 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("DetectionPlayer"))
+        if (collision.CompareTag("DetectionPlayer"))
         {
-            
+
         }
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
             collision.GetComponent<Player>().HealtManager.TakeDamage(1);
         }
