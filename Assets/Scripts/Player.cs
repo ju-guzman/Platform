@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform attackOrigin;
     [SerializeField] private float attackRadius = 1f;
     [SerializeField] private LayerMask AttackLayer;
+    [SerializeField] private AudioSource attackClip;
 
     [Header("Health system")]
     [SerializeField] private SO_PlayerHealthManager healtManager;
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        attackClip = GetComponent<AudioSource>();
         healtManager.OnGameOver += OnDeath;
     }
     void OnDeath()
@@ -84,6 +86,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            attackClip.PlayOneShot(attackClip.clip, 0.5f);
             anim.SetTrigger("Attack");
         }
     }

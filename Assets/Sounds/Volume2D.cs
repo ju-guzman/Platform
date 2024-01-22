@@ -9,6 +9,11 @@ public class Volume2D : MonoBehaviour
     public float minDist = 1;
     public float maxDist = 400;
 
+    private void Start()
+    {
+        listenerTransform = GameObject.Find("Main Camera").GetComponent<Transform>();
+    }
+
     void Update()
     {
         float dist = Vector3.Distance(transform.position, listenerTransform.position);
