@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
 
     private bool isWallJumping;
     private float wallJumpingDirection;
-    private float wallJumpingTime = 0.8f;
+    private float wallJumpingTime = 0.2f;
     private float wallJumpingCounter;
     private float wallJumpingDuration = 1f;
     private Vector2 wallJumpingPower = new Vector2(60f, 15f);
@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
     void OnDeath()
     {
         Destroy(gameObject);
+        LevelManager.Instance.GameOver();
     }
 
     void Update()
@@ -220,6 +221,29 @@ public class Player : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(attackOrigin.position, attackRadius);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("GameOver"))
+        {
+            OnDeath();
+        }
+
+        if (collision.CompareTag("Lvl1"))
+        {
+            LevelManager.Instance.Level2();
+        }
+
+        if (collision.CompareTag("Lvl2"))
+        {
+            LevelManager.Instance.Level3();
+        }
+
+        if (collision.CompareTag("Lvl3"))
+        {
+            LevelManager.Instance.Victory();
+        }
     }
 
 }

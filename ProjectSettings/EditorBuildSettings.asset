@@ -12,9 +12,18 @@ EditorBuildSettings:
     path: Assets/Scenes/Creditos.unity
     guid: c494e41c6c9a95c46a6dbad73a148376
   - enabled: 1
-    path: Assets/Scenes/Game.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/Level1_TheCity.unity
+    guid: 20887edf1c0d9104a8f7496d10642f85
+  - enabled: 1
+    path: Assets/Scenes/Level2_TheRoofs.unity
+    guid: ca73704153aa89240832f293c0a082ca
+  - enabled: 1
+    path: Assets/Scenes/Level3_Factory.unity
+    guid: d19710e1ba4c0864fbab987eb4882de5
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 0629050eb5eb469458ff75e61c83fc4d
+  - enabled: 1
+    path: Assets/Scenes/Victoria.unity
+    guid: d78a62cca39d4db4cbce09d604f83dc7
   m_configObjects: {}

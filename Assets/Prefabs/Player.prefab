@@ -98,6 +98,37 @@ CapsuleCollider2D:
   m_Offset: {x: -0.08478451, y: -0.09985942}
   m_Size: {x: 0.64007187, y: 1.7787484}
   m_Direction: 0
+--- !u!1 &5528434009000340886
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3774339917044317958}
+  m_Layer: 6
+  m_Name: WallCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3774339917044317958
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5528434009000340886}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.24, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8678507609062351404}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6603487726850988303
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,6 +198,7 @@ Transform:
   - {fileID: 2303002410777823668}
   - {fileID: 8144311172888261820}
   - {fileID: 1638524386506517806}
+  - {fileID: 3774339917044317958}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8956861223629938866
@@ -418,6 +450,10 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 256
+  wallCheck: {fileID: 3774339917044317958}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 512
   damage: 20
   attackOrigin: {fileID: 8144311172888261820}
   attackRadius: 0.9

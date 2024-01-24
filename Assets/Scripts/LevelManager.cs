@@ -36,7 +36,22 @@ public class LevelManager : MonoBehaviour
 
     public void Level1() 
     {
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene("Level1_TheCity");
+    }
+
+    public void Level2()
+    {
+        SceneManager.LoadScene("Level2_TheRoofs");
+    }
+
+    public void Level3()
+    {
+        SceneManager.LoadScene("Level3_Factory");
+    }
+
+    public void Victory() 
+    {
+        SceneManager.LoadScene("Victoria");
     }
 
     public void EndGame() 

@@ -86,6 +86,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3004273809830195726}
     m_Modifications:
+    - target: {fileID: 1086883500188904826, guid: c1b22b68d43705443a0ff0f2fa1bf09f, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -3641718783610497708, guid: c8c2d5bab1c03114dbdd5370b1d02f11, type: 2}
     - target: {fileID: 3155257060477365692, guid: c1b22b68d43705443a0ff0f2fa1bf09f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -268,6 +272,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3269616574096473826, guid: d63c23e8d207a5c4098ea99b5864defe, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -3641718783610497708, guid: c8c2d5bab1c03114dbdd5370b1d02f11, type: 2}
     - target: {fileID: 9165948624145243804, guid: d63c23e8d207a5c4098ea99b5864defe, type: 3}
       propertyPath: m_Name
       value: Life
@@ -374,6 +382,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9082321305473946678, guid: e171d6c861c2abc4ba5870ccdfdcf7ff, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -3641718783610497708, guid: c8c2d5bab1c03114dbdd5370b1d02f11, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

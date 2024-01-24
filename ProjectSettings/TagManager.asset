@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - DetectionPlayer
+  - GameOver
+  - Lvl1
+  - Lvl2
   layers:
   - Default
   - TransparentFX
@@ -16,7 +19,7 @@ TagManager:
   - Detections
   - Ground
   - Wall
-  - 
+  - GameOver
   - 
   - 
   - 
