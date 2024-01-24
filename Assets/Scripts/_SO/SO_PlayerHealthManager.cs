@@ -28,4 +28,10 @@ public class SO_PlayerHealthManager : ScriptableObject
             currentHealt = maxHealt;
         }
     }
+
+    internal void AddHealth(int health)
+    {
+        currentHealt += health;
+        OnHealtChange?.Invoke(currentHealt);
+    }
 }
