@@ -15,6 +15,7 @@ public class Laser : MonoBehaviour
         _animator = GetComponent<Animator>();
         _collider2D = GetComponent<Collider2D>();
         laser = GetComponent<AudioSource>();
+        InvokeRepeating(nameof(Espera), 0f, 5f);
     }
 
     void Update()
@@ -32,5 +33,11 @@ public class Laser : MonoBehaviour
             _collider2D.enabled = false;
 
         }
+    }
+
+    IEnumerator Espera() 
+    {
+        yield return new WaitForSeconds(5);
+        activo = !activo;
     }
 }
