@@ -44,13 +44,23 @@ public class Player : MonoBehaviour
 
     public SO_PlayerHealthManager HealtManager => healtManager;
 
+    private void OnEnable()
+    {
+        healtManager.OnGameOver += OnDeath;
+    }
+
+    private void OnDisable()
+    {
+        healtManager.OnGameOver -= OnDeath;
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         attackClip = GetComponent<AudioSource>();
-        healtManager.OnGameOver += OnDeath;
-        }
+    }
+
     void OnDeath()
     {
         Destroy(gameObject);
@@ -68,18 +78,18 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isWallJumping) 
+        if (!isWallJumping)
         {
             rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
         }
     }
 
-    private bool IsWalled() 
+    private bool IsWalled()
     {
         return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
     }
 
-    private void WallSlide() 
+    private void WallSlide()
     {
         if (IsWalled() && !IsInGroun() && horizontal != 0)
         {
@@ -93,16 +103,16 @@ public class Player : MonoBehaviour
 
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
         }
-        else 
+        else
         {
             isWallSliding = false;
             anim.SetBool("WallSliding", false);
         }
     }
 
-    private void WallJump() 
+    private void WallJump()
     {
-        if (isWallSliding) 
+        if (isWallSliding)
         {
             isWallJumping = false;
             wallJumpingDirection = transform.localScale.x;
@@ -116,7 +126,7 @@ public class Player : MonoBehaviour
             wallJumpingCounter -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && wallJumpingCounter > 0f) 
+        if (Input.GetKeyDown(KeyCode.Space) && wallJumpingCounter > 0f)
         {
             isWallJumping = true;
             rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
@@ -135,7 +145,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void StopWallJumping() 
+    private void StopWallJumping()
     {
         isWallJumping = false;
     }
@@ -166,7 +176,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Flip() 
+    private void Flip()
     {
         if (isFacinRight && horizontal < 0f || !isFacinRight && horizontal > 0f)
         {
@@ -181,7 +191,6 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             anim.SetTrigger("Jump");
 
             if (IsInGroun())
@@ -189,7 +198,6 @@ public class Player : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 doubleJump = true;
             }
-
             else if (doubleJump)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
@@ -214,7 +222,11 @@ public class Player : MonoBehaviour
 
         foreach (Collider2D enemy in enemiesTouched)
         {
-            enemy.GetComponent<LifeComponent>().TakenDamage(damage);
+            var lifeComponent = enemy.GetComponent<LifeComponent>();
+            if (lifeComponent)
+            {
+                lifeComponent.TakenDamage(damage);
+            }
         }
     }
 

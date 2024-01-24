@@ -354,6 +354,7 @@ MonoBehaviour:
   - {fileID: 8060747669250100976}
   speed: 5
   scoreByDeath: 10
+  scoreManager: {fileID: 11400000, guid: c05689f988cf4b447a0101c2fdd4b6e7, type: 2}
   player: {fileID: 0}
 --- !u!114 &8044863857607548220
 MonoBehaviour:

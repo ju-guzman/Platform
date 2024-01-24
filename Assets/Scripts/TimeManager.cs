@@ -20,6 +20,14 @@ public class TimeManager : MonoBehaviour
         }
     }
 
+    public void OnDisable()
+    {
+        if(playerHealthManager)
+        {
+            playerHealthManager.OnGameOver -= StopTimer;
+        }
+    }
+
     public void StopTimer()
     {
         StopAllCoroutines();

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform[] patrolPoints;
     [SerializeField] private float speed = 5f;
     [SerializeField] private int scoreByDeath = 10;
+    [SerializeField] private SO_ScoreManager scoreManager;
     [SerializeField] private Player player;
+
+    private LifeComponent lifeComponent;
 
     private int currentPatrolPoint = 0;
 
@@ -18,12 +22,14 @@ public class Enemy : MonoBehaviour
             StartCoroutine(Patrol());
         }
 
+        lifeComponent = GetComponent<LifeComponent>();
+        lifeComponent.OnDeath += OnDeath;
         player = GameObject.Find("Player").GetComponent<Player>();
     }
 
-    private void OnDestroy()
+    private void OnDeath()
     {
-        SO_ScoreManager.Instance.AddScore(scoreByDeath);
+        scoreManager.AddScore(scoreByDeath);
     }
 
     IEnumerator Patrol()

@@ -126,12 +126,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7204036948624335148, guid: dbb2e5a5843dc604397b45854a745115, type: 3}
       propertyPath: m_fontSize
-      value: 31.3
+      value: 29.15
       objectReference: {fileID: 0}
     - target: {fileID: 7204036948624335148, guid: dbb2e5a5843dc604397b45854a745115, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: c8c2d5bab1c03114dbdd5370b1d02f11, type: 2}
+    - target: {fileID: 7204036948624335148, guid: dbb2e5a5843dc604397b45854a745115, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -3641718783610497708, guid: c8c2d5bab1c03114dbdd5370b1d02f11, type: 2}
     - target: {fileID: 7560453602446601464, guid: dbb2e5a5843dc604397b45854a745115, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -177,3 +181,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1086883500188904826}
+  scoreManager: {fileID: 11400000, guid: c05689f988cf4b447a0101c2fdd4b6e7, type: 2}

@@ -4,11 +4,10 @@ using UnityEngine;
 public class ScoreUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI scoreText;
-    private SO_ScoreManager scoreManager;
+    [SerializeField] private SO_ScoreManager scoreManager;
 
     private void OnEnable()
     {
-        scoreManager = SO_ScoreManager.Instance;
         if(scoreManager)
         {
             scoreManager.OnUpdateScore += UpdateScoreUI;

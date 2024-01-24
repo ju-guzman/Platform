@@ -25,6 +25,7 @@ public class SO_PlayerHealthManager : ScriptableObject
         if (currentHealt <= 0)
         {
             OnGameOver?.Invoke();
+            currentHealt = maxHealt;
         }
     }
 }
