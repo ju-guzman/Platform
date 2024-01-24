@@ -8,6 +8,7 @@ TagManager:
   - GameOver
   - Lvl1
   - Lvl2
+  - Lvl3
   layers:
   - Default
   - TransparentFX
