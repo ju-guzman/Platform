@@ -65,13 +65,16 @@ public class Enemy : MonoBehaviour
 
     private void RotateStationaryCharacter()
     {
-        if (player.transform.position.x < transform.position.x)
+        if(player)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
-        else
-        {
-            transform.localScale = Vector3.one;
+            if (player.transform.position.x < transform.position.x)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+            else
+            {
+                transform.localScale = Vector3.one;
+            }
         }
     }
 
