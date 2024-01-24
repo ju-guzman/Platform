@@ -205,7 +205,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_Sprite: {fileID: -1918374567, guid: 03bd2c8b11c33b745a1d35fa4cc1fc86, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -398,6 +398,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   listenerTransform: {fileID: 0}
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 1585200415163166874}
   minDist: 1
   maxDist: 25
