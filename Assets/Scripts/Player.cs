@@ -8,27 +8,29 @@ public class Player : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Animator anim;
-    private float inputH;
-
-   
-    bool isGrounded;
-
 
     bool doubleJump;
 
-
-    [Header("wall Jump System")]
-    public Transform wallCheck;
-    bool isWallTocuh;
-    bool isDliding;
-    public float wallSlidingSpeed;
-
-
     [Header("Move system")]
+    private float horizontal;
+    private bool isWallSliding;
+    private float wallSlidingSpeed = 2f;
+    private bool isFacinRight = true;
+
+    private bool isWallJumping;
+    private float wallJumpingDirection;
+    private float wallJumpingTime = 0.8f;
+    private float wallJumpingCounter;
+    private float wallJumpingDuration = 1f;
+    private Vector2 wallJumpingPower = new Vector2(60f, 15f);
+
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 1f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask GroundLayer;
+
+    [SerializeField] private Transform wallCheck;
+    [SerializeField] private LayerMask wallLayer;
 
     [Header("Attack system")]
     [SerializeField] private float damage = 20f;
@@ -59,46 +61,103 @@ public class Player : MonoBehaviour
         Move();
         Jump();
         LaunchDamage();
-        WallCheck();
-
+        WallSlide();
+        WallJump();
     }
 
-    private void WallCheck()
+    private void FixedUpdate()
     {
-        isGrounded = Physics2D.OverlapBox(groundCheck.position, new Vector2(1.7f, 0.24f), 0, GroundLayer);
-        isGrounded = Physics2D.OverlapBox(wallCheck.position, new Vector2(0.3f, 1.7f), 0, GroundLayer);
-
-        if(isWallTocuh && !isGrounded && inputH != 0)
+        if (!isWallJumping) 
         {
-            isDliding = true;
+            rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        }
+    }
+
+    private bool IsWalled() 
+    {
+        return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
+    }
+
+    private void WallSlide() 
+    {
+        if (IsWalled() && !IsInGroun() && horizontal != 0)
+        {
+            isWallSliding = true;
+            anim.SetBool("WallSliding", true);
+
+            isFacinRight = !isFacinRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
+        }
+        else 
+        {
+            isWallSliding = false;
+            anim.SetBool("WallSliding", false);
+        }
+    }
+
+    private void WallJump() 
+    {
+        if (isWallSliding) 
+        {
+            isWallJumping = false;
+            wallJumpingDirection = transform.localScale.x;
+            wallJumpingCounter = wallJumpingTime;
+
+            CancelInvoke(nameof(StopWallJumping));
         }
         else
         {
-            isDliding = false;
+            anim.SetBool("WallSliding", false);
+            wallJumpingCounter -= Time.deltaTime;
         }
+
+        if (Input.GetKeyDown(KeyCode.Space) && wallJumpingCounter > 0f) 
+        {
+            isWallJumping = true;
+            rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
+            anim.SetBool("WallSliding", false);
+            wallJumpingCounter = 0f;
+
+            if (transform.localScale.x != wallJumpingDirection)
+            {
+                isFacinRight = !isFacinRight;
+                Vector3 localScale = transform.localScale;
+                localScale.x *= -1f;
+                transform.localScale = localScale;
+            }
+
+            Invoke(nameof(StopWallJumping), wallJumpingDuration);
+        }
+    }
+
+    private void StopWallJumping() 
+    {
+        isWallJumping = false;
     }
 
     private bool IsInGroun()
     {
         Debug.DrawRay(groundCheck.position, Vector2.down, Color.red, 0.3f);
         return Physics2D.Raycast(groundCheck.position, Vector2.down, 0.3f, GroundLayer);
-
     }
 
     private void Move()
     {
-        inputH = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(inputH * speed, rb.velocity.y);
+        horizontal = Input.GetAxis("Horizontal");
+        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
         SetVisualState();
+        Flip();
     }
 
     private void SetVisualState()
     {
-        if (inputH != 0)
+        if (horizontal != 0)
         {
-            Random.Range(0, 1);
             anim.SetBool("Running", true);
-            transform.eulerAngles = inputH > 0 ? Vector3.zero : new(0, 180, 0);
         }
         else
         {
@@ -106,13 +165,19 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void Flip() 
+    {
+        if (isFacinRight && horizontal < 0f || !isFacinRight && horizontal > 0f)
+        {
+            isFacinRight = !isFacinRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+        }
+    }
+
     private void Jump()
     {
-        //if (Input.GetKeyDown(KeyCode.Space) && IsInGroun())
-        //{
-        //    rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        //    anim.SetTrigger("Jump");
-        //}
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -129,7 +194,7 @@ public class Player : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 doubleJump = false;
             }
-            
+
         }
     }
 
@@ -155,14 +220,6 @@ public class Player : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(attackOrigin.position, attackRadius);
-    }
-
-    private void FixedUpdate()
-    {
-        if (isDliding)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
-        }
     }
 
 }
